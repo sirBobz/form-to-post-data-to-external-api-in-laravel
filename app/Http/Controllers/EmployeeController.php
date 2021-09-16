@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\DataTables\EmployeeDataTable;
 
 class EmployeeController extends Controller
 {
@@ -11,9 +12,9 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(EmployeeDataTable $dataTable)
     {
-       return view('');
+        return $dataTable->render('Form.index');
     }
 
     /**
