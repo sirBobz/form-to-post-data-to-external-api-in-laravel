@@ -27,23 +27,22 @@
         @endif
 
         <!-- Trigger the file upload modal with a button -->
-        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#fileUploadModal"><i
-                class="fa fa-upload" aria-hidden="true"></i> Upload
-            file</button>
+        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#AddEmployeeModal"><i
+                class="fa fa-plus" aria-hidden="true"></i> Add employee</button>
 
         <!-- Modal -->
-        <div class="modal fade" id="fileUploadModal" role="dialog">
+        <div class="modal fade" id="AddEmployeeModal" role="dialog">
             <div class="modal-dialog modal-lg">
 
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5>Please upload the Excel file</h5>
+                        <h5>Please fill in the employee details</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <br>
-                            {{-- @livewire('import') --}}
+                            @livewire('employee-registration')
                         <br><br>
                     </div>
 
