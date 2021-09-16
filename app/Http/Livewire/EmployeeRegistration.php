@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Jobs\PostDataToApi;
-use Illuminate\Support\Facades\Bus;
+use App\Models\Employee;
 
 class EmployeeRegistration extends Component
 {
@@ -24,42 +24,22 @@ class EmployeeRegistration extends Component
         'timezone' => 'required|max:100',
     ];
 
-    public function updated($propertyName) {
+    public function updated($propertyName)
+    {
 
         $this->validateOnly($propertyName);
     }
 
-    public function submit() {
+    public function submit()
+    {
 
-        $this->posttoApi = true;
         $validatedData = $this->validate();
 
+        Employee::create($validatedData);
+
         //send data to queue
-        $batch = Bus::batch([
-            new PostDataToApi($validatedData),
-        ])->dispatch();
-
-        $this->batchId = $batch->id;
+        PostDataToApi::dispatch($validatedData);
     }
-
-    // public function getImportBatchProperty()
-    // {
-    //     if (!$this->batchId) {
-    //         return null;
-    //     }
-
-    //     return Bus::findBatch($this->batchId);
-    // }
-
-    // public function updateImportProgress()
-    // {
-    //     $this->importFinished = $this->importBatch->finished();
-
-    //     if ($this->importFinished) {
-    //         $this->posttoApi = false;
-    //     }
-    // }
-
     public function render()
     {
         return view('livewire.employee-registration');
