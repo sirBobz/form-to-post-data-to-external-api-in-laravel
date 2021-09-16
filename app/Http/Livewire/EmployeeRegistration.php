@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Jobs\PostDataToApi;
-use App\Models\Employee;
 
 class EmployeeRegistration extends Component
 {
@@ -33,13 +32,10 @@ class EmployeeRegistration extends Component
 
     public function submit()
     {
-
         $validatedData = $this->validate();
 
-        Employee::create($validatedData);
-
-        //send data to queue
-        PostDataToApi::dispatch($validatedData);
+        //Dispatch data to queue
+        PostDataToApi::dispatch((object) $validatedData);
 
         $this->successMessage = 'Employee Created Successfully.';
         $this->clearForm();
