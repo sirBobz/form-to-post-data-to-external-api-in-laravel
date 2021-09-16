@@ -31,7 +31,7 @@ class EmployeeDataTable extends DataTable
      */
     public function query(Employee $model)
     {
-        return $model->all();
+        return $model->select('*');
     }
 
     /**
