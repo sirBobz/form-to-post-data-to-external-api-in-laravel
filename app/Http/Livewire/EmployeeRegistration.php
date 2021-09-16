@@ -14,6 +14,7 @@ class EmployeeRegistration extends Component
     public $email;
     public $username;
     public $timezone;
+    public $successMessage = '';
 
     protected $rules = [
         'name' => 'required|max:100',
@@ -39,7 +40,20 @@ class EmployeeRegistration extends Component
 
         //send data to queue
         PostDataToApi::dispatch($validatedData);
+
+        $this->successMessage = 'Employee Created Successfully.';
+        $this->clearForm();
     }
+
+    public function clearForm(){
+        $this->name = '';
+        $this->date_of_birth = '';
+        $this->email = '';
+        $this->location = '';
+        $this->username = '';
+        $this->timezone = '';
+    }
+
     public function render()
     {
         return view('livewire.employee-registration');
