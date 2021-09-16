@@ -20,8 +20,7 @@ class EmployeeDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables()
-            ->eloquent($query)
-            ->addColumn('action', 'employee.action');
+            ->eloquent($query);
     }
 
     /**
@@ -32,7 +31,7 @@ class EmployeeDataTable extends DataTable
      */
     public function query(Employee $model)
     {
-        return $model->newQuery();
+        return $model->all();
     }
 
     /**
@@ -43,18 +42,17 @@ class EmployeeDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('employee-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+            ->setTableId('employee-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->dom('Bfrtip')
+            ->orderBy(0)
+            ->buttons(
+                Button::make('export'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            );
     }
 
     /**
@@ -65,15 +63,14 @@ class EmployeeDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            'id',
+            'name',
+            'date_of_birth',
+            'location',
+            'email',
+            'username',
+            'timezone',
+            'created_at',
         ];
     }
 
