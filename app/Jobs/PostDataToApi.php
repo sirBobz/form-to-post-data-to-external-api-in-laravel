@@ -34,18 +34,17 @@ class PostDataToApi implements ShouldQueue
      */
     public function handle()
     {
-        $response = Http::post(
-                'http://statumapi.test:8080/',
-                [
-                    'name' => $this->data->name,
-                    'date_of_birth' => $this->data->date_of_birth,
-                    'email' => $this->data->email,
-                    'location' => $this->data->location,
-                    'username' => $this->data->username,
-                    'timezone' => $this->data->timezone,
-                ]
-            );
+        $data = [
+            'name' => $this->data->name,
+            'date_of_birth' => $this->data->date_of_birth,
+            'email' => $this->data->email,
+            'location' => $this->data->location,
+            'username' => $this->data->username,
+            'timezone' => $this->data->timezone,
+        ];
 
-        Log::info("API Response: " . $response);
+        $response = Http::post(config('services.form_api_route.url'), $data);
+
+        Log::info("API Request " .  json_encode($data). " API Response: " . $response);
     }
 }
